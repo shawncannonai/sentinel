@@ -1,0 +1,4 @@
+{
+ "_doc": "host:port entries this scanner should not flag, each with a reason. An empty list means every wildcard bind is reported, which is the right default.",
+ "allowed": []
+}

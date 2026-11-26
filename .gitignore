@@ -1,0 +1,8 @@
+# Sentinel's own findings are evidence about YOUR machine. Never commit them.
+state/
+config.json
+*.log
+__pycache__/
+*.pyc
+# Rendered reports name real files and real findings.
+remediation_packet*.html

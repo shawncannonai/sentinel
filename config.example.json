@@ -1,0 +1,8 @@
+{
+ "_doc": "Copy to config.json and edit. Nothing here is read from a hardcoded path.",
+ "repo_root": "/path/to/the/repos/you/want/scanned",
+ "repos": ["your-repo", "another-repo"],
+ "env_files": ["your-repo/state/.env"],
+ "watch_ports": [8000, 8080],
+ "state_dir": "state"
+}

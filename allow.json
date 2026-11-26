@@ -1,0 +1,10 @@
+{
+ "_doc": "fingerprint or finding id -> why this risk is accepted. An accepted finding is STILL COUNTED on the screen, so accepting is not hiding. Every entry needs a reason and a date, and the reason must record how it was VERIFIED, not what was assumed.",
+ "_example": {
+  "abc123def456": {
+   "reason": "what this finding is, and the evidence that it is safe to accept",
+   "by": "who or what verified it",
+   "on": "YYYY-MM-DD"
+  }
+ }
+}

@@ -1,0 +1,34 @@
+{
+  "_doc": [
+    "SOC 2 Type II Trust Services Criteria, trimmed to what applies to a one-person SaaS",
+    "that stores customer call data, contact data and payment state.",
+    "Each control names how it is satisfied: 'auto' checks read the other patrol stages",
+    "on every run; 'evidence' checks require a file under 04_compliance/evidence/ that a",
+    "human wrote and dated. A control with neither passing is a GAP and the report says",
+    "what closes it. Score = satisfied / total, and it is meant to be embarrassing at first."
+  ],
+  "controls": [
+    {"id": "CC1.1", "name": "Code of conduct and security policy exist", "check": "evidence", "evidence": "policies/information_security_policy.md", "closes_with": "write the policy: scope, roles, acceptable use, review date"},
+    {"id": "CC1.2", "name": "Roles and responsibilities defined", "check": "evidence", "evidence": "policies/roles.md", "closes_with": "name who owns security, privacy, incident response (one person can hold all three; write it down)"},
+    {"id": "CC2.1", "name": "Customer-facing privacy policy and terms published", "check": "evidence", "evidence": "evidence/public_policies.md", "closes_with": "URLs of the live privacy policy and terms on example.com plus the date last reviewed"},
+    {"id": "CC3.1", "name": "Risk assessment performed and reviewed", "check": "evidence", "evidence": "evidence/risk_register.md", "closes_with": "a risk register: asset, threat, likelihood, impact, treatment, owner, next review"},
+    {"id": "CC4.1", "name": "Controls monitored continuously", "check": "auto", "auto": "patrol_scheduled", "closes_with": "the Sentinel-Patrol task exists and its artifact is fresh"},
+    {"id": "CC5.1", "name": "Vendor and subprocessor inventory maintained", "check": "auto", "auto": "vendor_inventory", "closes_with": "evidence/vendors.json generated from the vault's configured names, reviewed quarterly"},
+    {"id": "CC6.1", "name": "Secrets held in a protected store, none in code or history", "check": "auto", "auto": "no_secret_findings", "closes_with": "zero unaccepted secrets findings at critical or high"},
+    {"id": "CC6.1b", "name": "Data at rest encrypted (laptop disk)", "check": "auto", "auto": "disk_encrypted", "closes_with": "BitLocker on for C:"},
+    {"id": "CC6.2", "name": "Access reviewed: every vendor account and who holds it", "check": "evidence", "evidence": "evidence/access_review.md", "closes_with": "list each vendor login, the holder, MFA yes/no, last reviewed date"},
+    {"id": "CC6.3", "name": "Least privilege on API keys (scoped, named, rotated)", "check": "evidence", "evidence": "evidence/key_rotation.md", "closes_with": "per key: scope, created, last rotated, rotation trigger"},
+    {"id": "CC6.6", "name": "Network boundary: services on loopback, tunnel the only ingress", "check": "auto", "auto": "no_exposure_findings", "closes_with": "zero unaccepted exposure findings at high or above"},
+    {"id": "CC6.7", "name": "Data in transit encrypted", "check": "auto", "auto": "tunnel_tls", "closes_with": "every public hostname answers over HTTPS"},
+    {"id": "CC6.8", "name": "Endpoint protection on and current", "check": "auto", "auto": "defender_ok", "closes_with": "Defender real-time on, signatures under 3 days old"},
+    {"id": "CC7.1", "name": "Vulnerability and patch management", "check": "auto", "auto": "patched", "closes_with": "Windows hotfix within 45 days; pip-audit clean is a later addition"},
+    {"id": "CC7.2", "name": "System activity logged and monitored", "check": "auto", "auto": "job_liveness", "closes_with": "conductor/job_liveness.py runs and state/job_artifacts.json covers every scheduled job that matters"},
+    {"id": "CC7.3", "name": "Security events evaluated", "check": "auto", "auto": "findings_ledger", "closes_with": "state/findings.jsonl exists with first_seen / last_seen per finding"},
+    {"id": "CC7.4", "name": "Incident response plan exists and was exercised", "check": "evidence", "evidence": "policies/incident_response.md", "closes_with": "the plan, plus one dated tabletop or real incident write-up"},
+    {"id": "CC8.1", "name": "Change management: code in git, changes reviewable", "check": "auto", "auto": "repos_committed", "closes_with": "no repo with more than 40 uncommitted paths"},
+    {"id": "CC9.1", "name": "Business continuity: backups exist and are recent", "check": "auto", "auto": "backups_fresh", "closes_with": "newest backup under 7 days; a restore test recorded in evidence/restore_test.md"},
+    {"id": "CC9.2", "name": "Vendor risk assessed", "check": "evidence", "evidence": "evidence/vendor_risk.md", "closes_with": "for each vendor holding customer data: what they hold, their SOC 2 / DPA status, exit plan"},
+    {"id": "P1.1", "name": "Data retention and deletion defined", "check": "evidence", "evidence": "policies/data_retention.md", "closes_with": "how long call recordings, transcripts and contacts are kept, and how a customer deletion request is fulfilled"},
+    {"id": "P2.1", "name": "Consent for call recording disclosed", "check": "evidence", "evidence": "evidence/recording_disclosure.md", "closes_with": "the exact disclosure the voice agent speaks, and which states require two-party consent"}
+  ]
+}
